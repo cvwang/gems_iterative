@@ -13,7 +13,6 @@ def reordering(partition_list, boundary_list, nparts, n, E):
   B = np.sort(boundary_group)
   boundary_reorder_list = boundary_list[boundary_reorder1]
   E_boundary = E[np.ix_(boundary_reorder_list, boundary_reorder_list)]
-  print E_boundary.sum().sum()
   bound_start = np.nonzero(np.diff(np.append(0,B)))[0]
   l = boundary_list.size
   bound_end = np.append(bound_start[np.arange(1,bound_start.size)]-1, l-1)
@@ -31,11 +30,8 @@ def reordering(partition_list, boundary_list, nparts, n, E):
   inner_node_per_group = inner_end - inner_start + 1
   boundary_start_number = index_start + inner_node_per_group
 
-  for i in range(nparts):
+  for i in range(nparts): # Parallelize
     E_boundary[np.ix_(range(bound_start[i],bound_end[i]+1),range(bound_start[i],bound_end[i]+1))] = 0
-
-  print E_boundary.sum().sum()
-
 
   node_reorder2 = np.zeros(n)
   for i in range(nparts): # Can be done in parallel for each group. Concatenate the inner node list and boundary node list for each group.

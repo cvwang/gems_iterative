@@ -8,7 +8,7 @@ def query(y, T1, T2, L_inv, U_inv, L_k_inv, U_k_inv, boundary_start_number, inde
   keysub = [None]*nparts
   index_end = np.append((index_start[1:] - 1), n-1)
   key = np.dot(U_inv, L_inv) 
-  for i in range(nparts):
+  for i in range(nparts): # Parallelize
     yb[i] = y[boundary_start_number[i]:index_end[i]+1]
     yi[i] = y[index_start[i]:boundary_start_number[i]]
     keysub[i] = key[np.ix_(range(key.shape[0]),range(boundary_start_number[i],index_end[i]+1))]

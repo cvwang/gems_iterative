@@ -1,5 +1,5 @@
 all:
-	spark-submit --master local[4] GemsApp.py
+	spark-submit --master local[4] FastIterativemethodDriver.py
 
 diff_boundary:
 	diff boundary_list.txt ../../matlab/boundary_list.txt
